@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>OECD Dashboard Spike</title>
+<style>body{font-family:system-ui,sans-serif;max-width:640px;margin:60px auto;padding:0 20px;color:#222}h1{font-size:24px}.card{border:1px solid #ddd;border-radius:12px;padding:24px;margin-top:20px}#time{font-size:20px;font-weight:600;color:#0b5fff}</style>
+</head>
+<body>
+<h1>OECD Dashboard — Spike 玩具页</h1>
+<p>这个页面本身什么都不会算。它只负责读取仓库里的一个小文件 <code>updated_at.txt</code> 并显示出来。</p>
+<div class="card">
+<p>机器人最近一次自动更新时间：</p>
+<p id="time">读取中…</p>
+</div>
+<p>如果这个时间不是你手动改的、而是 GitHub Actions 机器人写进去的，那么「定时运行 → 自动存回 → 网页展示」这条链路就验证通过了。</p>
+<script>
+fetch('updated_at.txt?t=' + Date.now())
+  .then(function(r){ return r.text(); })
+  .then(function(t){ document.getElementById('time').textContent = t.trim(); })
+  .catch(function(e){ document.getElementById('time').textContent = '读取失败：' + e; });
+</script>
+</body>
+</html>
